@@ -3,8 +3,10 @@ package com.example.detail_storage.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Check;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,12 +38,7 @@ public class Technica {
 
     private String brand;
 
-    @ManyToMany
-    @JoinTable(
-            name = "technica_detail",
-            joinColumns = @JoinColumn(name = "technica_id"),
-            inverseJoinColumns = @JoinColumn(name = "detail_id")
-    )
+    @ManyToMany(mappedBy = "technics")
     private Set<Detail> details;
 
 

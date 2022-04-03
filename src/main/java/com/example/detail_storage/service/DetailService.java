@@ -2,28 +2,28 @@ package com.example.detail_storage.service;
 
 import com.example.detail_storage.model.Detail;
 import com.example.detail_storage.repository.DetailRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DetailService {
     private final DetailRepository detailRepository;
-//авлптавлплапт
-    public DetailService(DetailRepository detailRepository) {
-        this.detailRepository = detailRepository;
-    }
 
-    public Collection<Detail> getAll() {
+    public List<Detail> getAll() {
         //дополнительная бизнес логика
         return detailRepository.findAll();
     }
 
     // получение детали по айди
     public Detail findById(Long id) {
-        return detailRepository.findById(id).get();
+        return detailRepository.getById(id);
     }
+
     // добавление детали
     public Detail saveDetail(Detail detail) {
         return detailRepository.save(detail);

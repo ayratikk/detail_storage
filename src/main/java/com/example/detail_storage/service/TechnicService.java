@@ -31,7 +31,7 @@ public class TechnicService {
 
     // получение техники по айди
     public Technica findById(Long id) {
-        return technicaRepository.findById(id).get();
+        return technicaRepository.getById(id);
 
     }
     public Collection<Technica> findByCost(Double cost){
