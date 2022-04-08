@@ -26,5 +26,6 @@ public class User {
     Boolean active;
     Role role;
 
+
 }
 

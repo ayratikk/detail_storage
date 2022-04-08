@@ -1,9 +1,11 @@
 package com.example.detail_storage.controller;
 
 import com.example.detail_storage.dto.TechnicaDto;
-import com.example.detail_storage.mapping.TechnicMapper;
+import com.example.detail_storage.mapping.TechnicaMapper;
 import com.example.detail_storage.model.Technica;
 import com.example.detail_storage.service.TechnicService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,41 +19,39 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/technica")
+@RequiredArgsConstructor
+@RequestMapping("/technics")
 
 public class TechnicController {
 
     private final TechnicService technicService;
-
-    public TechnicController(TechnicService technicService) {
-        this.technicService = technicService;
-    }
+    private final TechnicaMapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<Technica> getAllTechnica() {
-        return technicService.getAll();
+    public Collection<TechnicaDto> getAllTechnica() {
+        return mapper.domainListToDtoList(technicService.getAll());
     }
 
-    @PutMapping
-    public Technica update(@RequestBody Technica technica) {
-        return technicService.saveTechnica(technica);
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public TechnicaDto update(@RequestBody TechnicaDto technicaDto) {
+
+        return mapper.domainToDto(technicService.saveTechnica(mapper.dtoToDomain(technicaDto)));
     }
 
-    @DeleteMapping(value = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String delete(@PathVariable Long id) {
+    @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpStatus delete(@PathVariable Long id) {
         technicService.removeTechnica(id);
-        return "Вы удалили запись под номером" + " " + id;
+        return HttpStatus.NO_CONTENT;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Technica save(@RequestBody Technica technica) {
-        return technicService.saveTechnica(technica);
+    public TechnicaDto create(@RequestBody TechnicaDto technicaDto) {
+        return mapper.domainToDto(technicService.saveTechnica(mapper.dtoToDomain(technicaDto)));
     }
 
-    @GetMapping("/{id}")
-    public TechnicaDto getById(@PathVariable Long id) {
-        Technica technica = technicService.findById(id);
-        return TechnicMapper.INSTANCE.toDTO(technica);
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TechnicaDto getTechnic(@PathVariable Long id) {
+        return mapper.domainToDto(technicService.findById(id));
     }
 
     @GetMapping("/cost/{cost}")

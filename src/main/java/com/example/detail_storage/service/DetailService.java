@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class DetailService {
+
     private final DetailRepository detailRepository;
 
     public List<Detail> getAll() {
@@ -24,8 +24,9 @@ public class DetailService {
         return detailRepository.getById(id);
     }
 
-    // добавление детали
+    //   добавление детали
     public Detail saveDetail(Detail detail) {
+
         return detailRepository.save(detail);
     }
 
