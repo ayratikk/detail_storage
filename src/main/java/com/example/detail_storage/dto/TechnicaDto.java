@@ -18,5 +18,5 @@ public class TechnicaDto {
 
     private String brand;
 
-    private Set<Detail> details;
+
 }

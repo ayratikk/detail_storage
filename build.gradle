@@ -27,6 +27,7 @@ ext {
 }
 
 dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springBootVesrion"
     developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVesrion"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVesrion"

@@ -17,5 +17,4 @@ public class DetailDto {
 
     private Double cost;
 
-    private Set<Technica> technics;
 }

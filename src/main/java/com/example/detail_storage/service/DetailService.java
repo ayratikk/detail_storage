@@ -21,12 +21,18 @@ public class DetailService {
 
     // получение детали по айди
     public Detail findById(Long id) {
-        return detailRepository.getById(id);
+        if (id != null) {
+            return detailRepository.getById(id);
+        } else
+            return null;
+
     }
 
     //   добавление детали
     public Detail saveDetail(Detail detail) {
-
+        if (detail.getName() == null || detail.getCost() == null || detail == null) {
+            return null;
+        }
         return detailRepository.save(detail);
     }
 

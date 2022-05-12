@@ -1,6 +1,7 @@
 package com.example.detail_storage.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Check;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "details")
 public class Detail {
     @Id

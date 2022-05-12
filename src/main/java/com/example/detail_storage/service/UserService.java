@@ -1,5 +1,6 @@
 package com.example.detail_storage.service;
 
+import com.example.detail_storage.common.exception.ExceptionHandler;
 import com.example.detail_storage.model.User;
 import com.example.detail_storage.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,10 @@ import java.util.Collection;
 
 public class UserService {
     private final UserRepository userRepository;
+    ExceptionHandler ex;
 
     public User getUser(Long id) {
+
         return userRepository.getById(id);
     }
 

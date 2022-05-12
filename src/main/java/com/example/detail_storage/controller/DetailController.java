@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Collection;
 
 @RestController
@@ -48,7 +49,7 @@ public class DetailController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DetailDto create(@RequestBody DetailDto detailDto) {
+    public DetailDto create(@RequestBody DetailDto detailDto)  {
         // передаем экземпляр из внешнего мира в маппер, конвертируем в сущность, сохраняем объект
         // конвертируем сущность в дто и возвращаем в ответ на запрос
         return mapper.domainToDto(detailService.saveDetail(mapper.dtoToDomain(detailDto)));

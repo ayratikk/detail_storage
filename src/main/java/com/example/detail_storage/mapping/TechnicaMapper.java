@@ -13,6 +13,6 @@ public interface TechnicaMapper  {
     TechnicaDto domainToDto(Technica technica);
     Technica dtoToDomain(TechnicaDto technicaDto);
     Collection<Technica> dtoListToDomainList(Collection<TechnicaDto>technicaDtos);
-    Collection<TechnicaDto> domainListToDtoList(Collection<Technica> technicas);
+    Collection<TechnicaDto> domainListToDtoList(Collection<Technica> technics);
 
 }
