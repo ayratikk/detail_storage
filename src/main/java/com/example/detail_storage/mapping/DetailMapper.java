@@ -4,15 +4,6 @@ import com.example.detail_storage.dto.DetailDto;
 import com.example.detail_storage.model.Detail;
 import org.mapstruct.Mapper;
 
-import java.util.Collection;
-import java.util.Optional;
-
 @Mapper(componentModel = "spring")
-public interface DetailMapper {
-    DetailDto domainToDto(Detail detail);
-    Detail dtoToDomain(DetailDto detailDto);
-    Collection<Detail> dtoListToDomainList(Collection<DetailDto> detailDtos);
-    Collection<DetailDto> domainListToDtoList(Collection<Detail> details);
-
-
+public interface DetailMapper extends BaseMapper<Detail, DetailDto> {
 }

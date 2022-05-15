@@ -35,7 +35,7 @@ public class Detail {
     private Double cost;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable( name = "details_technics",
+    @JoinTable(name = "details_technics",
             joinColumns = {@JoinColumn(name = "DETAIL_ID")},
             inverseJoinColumns = {@JoinColumn(name = "TECHNICA_ID")}
 

@@ -1,6 +1,5 @@
 package com.example.detail_storage.repository;
 
-import com.example.detail_storage.dto.DetailDto;
 import com.example.detail_storage.model.Detail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

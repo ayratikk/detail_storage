@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.Collection;
 
 @RestController
@@ -30,43 +30,38 @@ public class DetailController {
     //доступ к мапперу
     private final DetailMapper mapper;
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public DetailDto create(@RequestBody DetailDto detailDto) {
+        // передаем экземпляр из внешнего мира в маппер, конвертируем в сущность, сохраняем объект
+        // конвертируем сущность в дто и возвращаем в ответ на запрос
+        return mapper.toDto(detailService.saveDetail(mapper.toDomain(detailDto)));
+    }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<DetailDto> getAllDetails() {
         //вызываем метод, туда передаем экземпляр класса Detail, а возвращается нам из метода маппера уже дто
         // и мы его возвращаем в ответ на запрос
-        return mapper.domainListToDtoList(detailService.getAll());
+        return mapper.toDtoCollection(detailService.getAll());
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DetailDto getDetail(@PathVariable Long id) {
-        return mapper.domainToDto(detailService.findById(id));
+        return mapper.toDto(detailService.findById(id));
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpStatus delete(@PathVariable Long id) {
-        detailService.removeDetail(id);
-        return HttpStatus.NO_CONTENT;
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public DetailDto create(@RequestBody DetailDto detailDto)  {
-        // передаем экземпляр из внешнего мира в маппер, конвертируем в сущность, сохраняем объект
-        // конвертируем сущность в дто и возвращаем в ответ на запрос
-        return mapper.domainToDto(detailService.saveDetail(mapper.dtoToDomain(detailDto)));
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Collection<Detail> findByCost(@RequestParam("cost") Double cost) {
+        return detailService.findByCost(cost);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public DetailDto update(@RequestBody DetailDto detailDto) {
-        return mapper.domainToDto(detailService.saveDetail(mapper.dtoToDomain(detailDto)));
+        return mapper.toDto(detailService.saveDetail(mapper.toDomain(detailDto)));
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<Detail> findByCost(@RequestParam("cost") Double cost) {
-        return detailService.findByCost(cost);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        detailService.removeDetail(id);
     }
-//    @GetMapping("/cost/{cost}")
-//    public Collection<Detail> findByCost(@PathVariable Double cost) {
-//        return detailService.findByCost(cost);
-//    }
-
 }

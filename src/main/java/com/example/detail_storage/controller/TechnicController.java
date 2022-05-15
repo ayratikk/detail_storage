@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -21,41 +23,40 @@ import java.util.Collection;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/technics")
-
 public class TechnicController {
 
     private final TechnicService technicService;
     private final TechnicaMapper mapper;
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public TechnicaDto create(@RequestBody TechnicaDto technicaDto) {
+        return mapper.toDto(technicService.saveTechnica(mapper.toDomain(technicaDto)));
+    }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<TechnicaDto> getAllTechnica() {
-        return mapper.domainListToDtoList(technicService.getAll());
+        return mapper.toDtoCollection(technicService.getAll());
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TechnicaDto getTechnic(@PathVariable Long id) {
+        return mapper.toDto(technicService.findById(id));
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Collection<Technica> findByCost(@RequestParam("cost") Double cost) {
+        return technicService.findByCost(cost);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public TechnicaDto update(@RequestBody TechnicaDto technicaDto) {
 
-        return mapper.domainToDto(technicService.saveTechnica(mapper.dtoToDomain(technicaDto)));
+        return mapper.toDto(technicService.saveTechnica(mapper.toDomain(technicaDto)));
     }
 
-    @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpStatus delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
         technicService.removeTechnica(id);
-        return HttpStatus.NO_CONTENT;
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public TechnicaDto create(@RequestBody TechnicaDto technicaDto) {
-        return mapper.domainToDto(technicService.saveTechnica(mapper.dtoToDomain(technicaDto)));
-    }
-
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public TechnicaDto getTechnic(@PathVariable Long id) {
-        return mapper.domainToDto(technicService.findById(id));
-    }
-
-    @GetMapping("/cost/{cost}")
-    public Collection<Technica> findByCost(@PathVariable Double cost) {
-        return technicService.findByCost(cost);
     }
 }

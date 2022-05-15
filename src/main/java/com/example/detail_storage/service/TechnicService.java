@@ -32,7 +32,8 @@ public class TechnicService {
         return technicaRepository.getById(id);
 
     }
-    public Collection<Technica> findByCost(Double cost){
+
+    public Collection<Technica> findByCost(Double cost) {
         return technicaRepository.findByCostAfter(cost);
     }
 }
