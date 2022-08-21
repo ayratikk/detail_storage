@@ -42,7 +42,7 @@ public class Technica {
 
     private String brand;
 
-
+//убрал бесконечный джэйсон
     @ManyToMany(mappedBy = "technics")
     @JsonIgnore
     private Set <Detail> details;
