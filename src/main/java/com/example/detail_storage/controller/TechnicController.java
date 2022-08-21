@@ -32,6 +32,11 @@ public class TechnicController {
         return mapper.domainListToDtoList(technicService.getAll());
     }
 
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public TechnicaDto getTechnic(@PathVariable Long id) {
+        return mapper.domainToDto(technicService.findById(id));
+    }
+
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public TechnicaDto update(@RequestBody TechnicaDto technicaDto) {
 
@@ -47,11 +52,6 @@ public class TechnicController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public TechnicaDto create(@RequestBody TechnicaDto technicaDto) {
         return mapper.domainToDto(technicService.saveTechnica(mapper.dtoToDomain(technicaDto)));
-    }
-
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public TechnicaDto getTechnic(@PathVariable Long id) {
-        return mapper.domainToDto(technicService.findById(id));
     }
 
     @GetMapping("/cost/{cost}")

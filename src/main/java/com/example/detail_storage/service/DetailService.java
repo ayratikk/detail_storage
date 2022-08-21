@@ -1,10 +1,12 @@
 package com.example.detail_storage.service;
 
+import com.example.detail_storage.common.exception.ExceptionHandler;
 import com.example.detail_storage.model.Detail;
 import com.example.detail_storage.repository.DetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
 public class DetailService {
 
     private final DetailRepository detailRepository;
+    private final ExceptionHandler handler;
 
     public List<Detail> getAll() {
         //дополнительная бизнес логика
@@ -21,10 +24,11 @@ public class DetailService {
 
     // получение детали по айди
     public Detail findById(Long id) {
-        if (id != null) {
+        if (id != 0) {
             return detailRepository.getById(id);
-        } else
-            return null;
+        } else{
+           return null;
+        }
 
     }
 

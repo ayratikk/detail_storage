@@ -1,5 +1,9 @@
 package com.example.detail_storage.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -36,10 +41,10 @@ public class Detail {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable( name = "details_technics",
-            joinColumns = {@JoinColumn(name = "DETAIL_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "TECHNICA_ID")}
-
+            joinColumns = @JoinColumn(name = "detail_id"),
+            inverseJoinColumns = @JoinColumn(name = "technica_id")
     )
-    private Set<Technica> technics;
+    @JsonIgnore
+    private Set <Technica> technics;
 
 }

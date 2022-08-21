@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+
 import java.util.Collection;
 
 @RestController
@@ -37,7 +37,7 @@ public class DetailController {
         return mapper.domainListToDtoList(detailService.getAll());
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DetailDto getDetail(@PathVariable Long id) {
         return mapper.domainToDto(detailService.findById(id));
     }

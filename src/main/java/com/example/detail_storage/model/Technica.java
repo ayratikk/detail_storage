@@ -1,5 +1,8 @@
 package com.example.detail_storage.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 @Getter
 @Setter
@@ -38,8 +42,10 @@ public class Technica {
 
     private String brand;
 
+
     @ManyToMany(mappedBy = "technics")
-    private Set<Detail> details;
+    @JsonIgnore
+    private Set <Detail> details;
 
 
 }
