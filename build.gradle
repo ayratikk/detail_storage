@@ -38,6 +38,10 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
     implementation "org.mapstruct:mapstruct:$mapstructVersion"
     runtimeOnly "org.postgresql:postgresql:$postgresqlDriverVersion"
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+
 }
 
 test {

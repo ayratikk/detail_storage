@@ -28,7 +28,7 @@ public class TechnicController {
     private final TechnicaMapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<TechnicaDto> getAllTechnica() {
+    public Collection<TechnicaDto> getAll() {
         return mapper.domainListToDtoList(technicService.getAll());
     }
 
@@ -43,7 +43,7 @@ public class TechnicController {
         return mapper.domainToDto(technicService.saveTechnica(mapper.dtoToDomain(technicaDto)));
     }
 
-    @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpStatus delete(@PathVariable Long id) {
         technicService.removeTechnica(id);
         return HttpStatus.NO_CONTENT;

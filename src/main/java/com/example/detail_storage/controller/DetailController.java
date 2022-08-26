@@ -31,13 +31,13 @@ public class DetailController {
     private final DetailMapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<DetailDto> getAllDetails() {
+    public Collection<DetailDto> getAll() {
         //вызываем метод, туда передаем экземпляр класса Detail, а возвращается нам из метода маппера уже дто
         // и мы его возвращаем в ответ на запрос
         return mapper.domainListToDtoList(detailService.getAll());
     }
 
-    @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DetailDto getDetail(@PathVariable Long id) {
         return mapper.domainToDto(detailService.findById(id));
     }

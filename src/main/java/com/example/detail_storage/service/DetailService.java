@@ -6,7 +6,6 @@ import com.example.detail_storage.repository.DetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class DetailService {
     public Detail findById(Long id) {
         if (id != 0) {
             return detailRepository.getById(id);
-        } else{
-           return null;
+        } else {
+            return null;
         }
 
     }
