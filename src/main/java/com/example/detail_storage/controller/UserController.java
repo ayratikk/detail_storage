@@ -2,6 +2,7 @@ package com.example.detail_storage.controller;
 
 import com.example.detail_storage.dto.UserDto;
 import com.example.detail_storage.mapping.UserMapper;
+import com.example.detail_storage.model.Role;
 import com.example.detail_storage.model.User;
 import com.example.detail_storage.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,10 +58,9 @@ public class UserController {
 //    public String registration() {
 //        return "registration";
 //    }
-//
-//    @PostMapping("/registration")
-//    public String addUser(User user) {
-//        userService.saveUser(user);
-//        return "success";
-//    }
+
+    @PostMapping("/registration")
+    public User addUser(User user) {
+        return userService.saveUser(user);
+    }
 }

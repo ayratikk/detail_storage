@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,8 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        user.setActive(true);
+        user.setRole(Collections.singleton(Role.USER));
         userRepository.save(user);
         return user;
     }
